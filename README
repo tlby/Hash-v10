@@ -1,0 +1,35 @@
+Hash-v10 version 0.01
+=====================
+
+This provides a perl v5.10 compatible hash.  It is intended as a last
+resort for porting stubborn code across the "Hash randomization" feature
+in perl v5.18 and above.  It achieves this by embedding a perl v5.10
+interpeters HV implementation, and allowing you to tie() specific hashes
+back to having earlier hash semantics.
+
+INSTALLATION
+
+To install this module type the following:
+
+   perl Makefile.PL
+   make
+   make test
+   make install
+
+DEPENDENCIES
+
+This module requires these other modules and libraries:
+
+  perlbrew
+
+COPYRIGHT AND LICENCE
+
+Put the correct copyright and licence information here.
+
+Copyright (C) 2015 by Robert Stone
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself, either Perl version 5.18.2 or,
+at your option, any later version of Perl 5 you may have available.
+
+

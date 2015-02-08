@@ -1,0 +1,6 @@
+Revision history for Perl extension Hash::v10.
+
+0.01  Wed Feb  4 15:39:00 2015
+	- original version; created by h2xs 1.23 with options
+		-n Hash::v10
+

@@ -1,0 +1,30 @@
+Hash T_HASH
+Hkey T_HKEY
+Hval T_HVAL
+
+INPUT
+T_HASH
+        if (SvROK($arg) && sv_derived_from($arg, \"Hash::v10\")) {
+            IV tmp = SvIV((SV*)SvRV($arg));
+            $var = INT2PTR($type,tmp);
+        }
+        else
+            Perl_croak(aTHX_ \"%s: %s is not of type %s\",
+                        ${$ALIAS?\q[GvNAME(CvGV(cv))]:\qq[\"$pname\"]},
+                        \"$var\", \"Hash::v10\")
+T_HKEY
+        $var = alloca(sizeof(struct Hkey));
+        $var->str = SvPV($arg, $var->len);
+T_HVAL
+        $var = (Hval)$arg;
+
+OUTPUT
+T_HASH
+	sv_setref_pv($arg, \"Hash::v10\", (void*)$var);
+T_HKEY
+	if($var)
+	    sv_setpvn($arg, $var->str, $var->len);
+	else
+	    sv_setsv($arg, &PL_sv_undef);
+T_HVAL
+        $arg = (Hval)$var;
