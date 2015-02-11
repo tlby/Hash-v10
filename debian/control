@@ -1,0 +1,21 @@
+Source: libhash-v10-perl
+Section: perl
+Priority: optional
+Maintainer: Robert Stone <talby@trap.mtview.ca.us>
+Build-Depends: debhelper (>= 9.20120312),
+ perl
+Standards-Version: 3.9.5
+Homepage: https://metacpan.org/release/Hash-v10
+
+Package: libhash-v10-perl
+Architecture: any
+Depends: ${misc:Depends}, ${perl:Depends}, ${shlibs:Depends}
+Description: Perl extension for perl v5.10 compatible hashes
+ This provides a perl v5.10 compatible hash. It is intended as a last resort
+ for porting stubborn code across the "Hash randomization" feature in perl
+ v5.18 and above. It achieves this by embedding a perl v5.10 interpeters HV
+ implementation, and allowing you to tie() specific hashes back to having
+ earlier hash semantics.
+ .
+ The source code for this project may also serve as a starting point for other
+ reverse compatibility solutions via interpreter embedding.

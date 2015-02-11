@@ -1,0 +1,15 @@
+LIBHV_0.02 {
+  global:
+    hash_new;
+    hash_free;
+    hash_fetch;
+    hash_store;
+    hash_exists;
+    hash_delete;
+    hash_clear;
+    hash_scalar;
+    hash_firstkey;
+    hash_nextkey;
+  local:
+    *;
+};

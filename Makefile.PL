@@ -17,10 +17,10 @@ WriteMakefile(
     INC               => '-I.', # e.g., '-I. -I/usr/include/other'
     # Un-comment this if you add C files to link with later:
     #OBJECT            => '$(O_FILES)', # link all the C files too
-    dynamic_lib => {
+    macro             => { LIBHV => 'libhv.so' },
+    dynamic_lib       => {
         INST_DYNAMIC_DEP => '$(INST_ARCHAUTODIR)/libhv.$(DLEXT)',
-        OTHERLDFLAGS => '-L$(INST_ARCHAUTODIR) -Wl,-rpath=$(INST_ARCHAUTODIR):'.
-            '$(PERL_ARCHLIB)/auto/$(FULLEXT) -lhv ',
+        OTHERLDFLAGS => q{-L$(INST_ARCHAUTODIR) -Wl,-rpath='$${ORIGIN}' -lhv},
     },
 );
 if  (eval {require ExtUtils::Constant; 1}) {
@@ -46,13 +46,11 @@ else {
     copy ($fallback, $file) or die "Can't copy $fallback to $file: $!";
   }
 }
+
 sub MY::postamble { q{
-
-LIBHV = libhv.so
-
 src/$(LIBHV):
-	$(MAKE) -C src brew $(PASSTHRU)
-	$(MAKE) -C src $(LIBHV) $(PASSTHRU)
+	$(MAKE) -C brew perl-5.10.1
+	$(MAKE) -C src PERL=$(CURDIR)/brew/perl-5.10.1 $(LIBHV)
 
 $(INST_DYNAMIC_DEP): src/$(LIBHV)
 	install -m 755 $< $@
@@ -60,6 +58,8 @@ $(INST_DYNAMIC_DEP): src/$(LIBHV)
 clean ::
 	$(MAKE) -C src clean
 
-.PHONY : src/$(LIBHV)
+realclean ::
+	$(MAKE) -C brew clean
 
+.PHONY : src/$(LIBHV)
 } }
